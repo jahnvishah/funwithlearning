@@ -22,8 +22,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let tabBarController = window?.rootViewController as? UITabBarController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "Nav2Controller")
-            vc.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 1)
+            let vc1 = storyboard.instantiateViewController(withIdentifier: "Nav3Controller")
+            let item = UITabBarItem()
+            item.image = UIImage(systemName: "gamecontroller")
+            item.title = "Guess the Flag"
+            item.tag = 1
+            vc.tabBarItem = item
+            let item1 = UITabBarItem()
+            item1.image = UIImage(systemName: "tag.fill")
+            item1.title = "Register"
+            item1.tag = 2
+            vc1.tabBarItem = item1
             tabBarController.viewControllers?.append(vc)
+            tabBarController.viewControllers?.append(vc1)
         }
     }
 

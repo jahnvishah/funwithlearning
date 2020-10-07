@@ -97,11 +97,59 @@
             </objects>
             <point key="canvasLocation" x="6605.7971014492759" y="-103.125"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Users View Controller-->
+        <scene sceneID="Hp2-Fs-G5r">
+            <objects>
+                <viewController id="Mxs-aa-dOd" customClass="UsersViewController" customModule="FWL" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bpO-s0-j2n">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rtJ-cy-rpf">
+                                <rect key="frame" x="87" y="230" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Clm-Fq-5O7">
+                                    <rect key="frame" x="0.0" y="0.0" width="240" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Save"/>
+                                    <connections>
+                                        <action selector="buttonSave:" destination="Mxs-aa-dOd" eventType="touchUpInside" id="RfT-Ip-dFs"/>
+                                    </connections>
+                                </button>
+                            </tableView>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V2a-hc-PlN">
+                                <rect key="frame" x="99" y="277" width="214" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eel-9K-3d6">
+                                <rect key="frame" x="99" y="319" width="214" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="6Pe-cK-RGV"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="5lj-vg-HVm"/>
+                    <connections>
+                        <outlet property="tableViewHeroes" destination="rtJ-cy-rpf" id="4ui-SM-J7C"/>
+                        <outlet property="textFieldName" destination="V2a-hc-PlN" id="SQP-0Z-1r9"/>
+                        <outlet property="textFieldPowerRanking" destination="Eel-9K-3d6" id="S1K-3G-zyd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XUh-sU-sGL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8392.753623188406" y="-109.82142857142857"/>
+        </scene>
+        <!--Anagram-->
         <scene sceneID="LYB-PL-qlQ">
             <objects>
                 <navigationController storyboardIdentifier="NavController" automaticallyAdjustsScrollViewInsets="NO" id="0Rh-WD-3XP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="mgE-Sl-nRS"/>
+                    <tabBarItem key="tabBarItem" title="Anagram" image="gamecontroller.fill" catalog="system" id="mgE-Sl-nRS"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="R7o-Sa-kSp">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -152,8 +200,27 @@
             </objects>
             <point key="canvasLocation" x="5695.652173913044" y="-103.125"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="t9m-fA-z01">
+            <objects>
+                <navigationController storyboardIdentifier="Nav3Controller" automaticallyAdjustsScrollViewInsets="NO" id="3sf-8Y-3lT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GDh-Ua-BqO">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Mxs-aa-dOd" kind="relationship" relationship="rootViewController" id="2Wv-HY-sGZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tyi-L5-9Ru" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7482.6086956521749" y="-109.82142857142857"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="gamecontroller.fill" catalog="system" width="128" height="82"/>
         <image name="ireland" width="200" height="100"/>
     </resources>
 </document>

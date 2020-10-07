@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SQLite3
 
 class AnagramViewController: UITableViewController {
 
@@ -165,6 +166,7 @@ class AnagramViewController: UITableViewController {
     }
 
 class FlagsViewController: UIViewController {
+    
     @IBOutlet var button1: UIButton!
     @IBOutlet var button2: UIButton!
     @IBOutlet var button3: UIButton!
@@ -247,12 +249,6 @@ class FlagsViewController: UIViewController {
             present(gameOver,animated: true)
             }
             
-            
-            
-            
-            
-            
-            
             countries.shuffle()
             correctAnswer=Int.random(in: 0...2)
             timesAsked+=1
@@ -306,3 +302,87 @@ class FlagsViewController: UIViewController {
         
     }
 
+class UsersViewController: UIViewController {
+    
+    var db: OpaquePointer?
+    
+    @IBOutlet weak var tableViewHeroes: UITableView!
+    @IBOutlet weak var textFieldName: UITextField!
+    @IBOutlet weak var textFieldPowerRanking: UITextField!
+    
+    @IBAction func buttonSave(_ sender: UIButton) {
+        //getting values from textfields
+               let name = textFieldName.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+               let powerRanking = textFieldPowerRanking.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        
+               //validating that values are not empty
+               if(name?.isEmpty)!{
+                   textFieldName.layer.borderColor = UIColor.red.cgColor
+                   return
+               }
+        
+               if(powerRanking?.isEmpty)!{
+                   textFieldName.layer.borderColor = UIColor.red.cgColor
+                   return
+               }
+        
+               //creating a statement
+               var stmt: OpaquePointer?
+        
+               //the insert query
+               let queryString = "INSERT INTO Heroes (name, powerrank) VALUES (?,?)"
+        
+               //preparing the query
+               if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
+                   let errmsg = String(cString: sqlite3_errmsg(db)!)
+                   print("error preparing insert: \(errmsg)")
+                   return
+               }
+        
+               //binding the parameters
+               if sqlite3_bind_text(stmt, 1, name, -1, nil) != SQLITE_OK{
+                   let errmsg = String(cString: sqlite3_errmsg(db)!)
+                   print("failure binding name: \(errmsg)")
+                   return
+               }
+        
+               if sqlite3_bind_int(stmt, 2, (powerRanking! as NSString).intValue) != SQLITE_OK{
+                   let errmsg = String(cString: sqlite3_errmsg(db)!)
+                   print("failure binding name: \(errmsg)")
+                   return
+               }
+        
+               //executing the query to insert values
+               if sqlite3_step(stmt) != SQLITE_DONE {
+                   let errmsg = String(cString: sqlite3_errmsg(db)!)
+                   print("failure inserting hero: \(errmsg)")
+                   return
+               }
+        
+               //emptying the textfields
+               textFieldName.text=""
+               textFieldPowerRanking.text=""
+        
+        
+               //displaying a success message
+                let ac = UIAlertController(title: "Registered", message: "User saved successfully", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                present(ac, animated: true)
+    }
+    
+    override func viewDidLoad() {
+    super.viewDidLoad()
+        
+        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("Heroes.sqlite")
+        
+        if sqlite3_open(fileURL.path, &db) != SQLITE_OK {
+            print("error opening database")
+        }
+        
+        if sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS Heroes (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, powerrank INTEGER)", nil, nil, nil) != SQLITE_OK {
+                   let errmsg = String(cString: sqlite3_errmsg(db)!)
+                   print("error creating table: \(errmsg)")
+               }
+    }
+}
